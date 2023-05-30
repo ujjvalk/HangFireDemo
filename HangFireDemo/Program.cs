@@ -28,7 +28,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
 app.UseHangfireDashboard();
+
+//Enable Cors support for api
+app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 BackgroundJob.Enqueue(() => Console.WriteLine("Fire-and-forget Job Executed"));
 
 BackgroundJob.Schedule(() => Console.WriteLine("Delayed job executed"), TimeSpan.FromMinutes(1));
